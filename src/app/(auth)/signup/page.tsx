@@ -81,8 +81,8 @@ const Signup = () => {
     , [userName]);
 
   return (
-    <div className='max-w-[400px] bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 py-6 px-3 sm:p-6 mt-[100px] rounded-xl  border border-neutral-800 '>
-      <h1 className={'text-center text-2xl sm:text-3xl pb-2 text-neutral-200 ' + ralewayDots.className}>MysteryMessage</h1>
+    <div className='max-w-[440px] w-full bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 py-6 px-3 sm:p-6 mt-[100px] rounded-xl  border border-neutral-800 '>
+      <h1 className={'text-center text-2xl sm:text-3xl pb-2 text-neutral-200 ' + ralewayDots.className}>ShadowChat</h1>
       <p className="text-center sm:text-base text-neutral-300">
         Sign up to share <span className='bg-gradient-to-br from-red-950 via-red-800 to-red-900 py-[2px] px-1'>anonymous</span> feedback.
       </p>

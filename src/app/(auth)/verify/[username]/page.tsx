@@ -65,7 +65,7 @@ const Verify = ({ params }: { params: { username: string } }) => {
     }, []);
 
     return (
-        <div className='max-w-[400px] bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 py-6 px-3 sm:p-6 mt-[100px] rounded-xl  border border-neutral-800  '>
+        <div className='max-w-[440px] w-full bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 py-6 px-3 sm:p-6 mt-[100px] rounded-xl  border border-neutral-800  '>
             <h1 className='text-3xl text-center text-neutral-200'>Verify your account</h1>
             <p className=' text-neutral-300 text-center pt-3 pb-9  '>Enter the  <span className='bg-gradient-to-br from-red-950 via-red-800 to-red-900 py-[1px] px-1'>verification code</span> sent to your email</p>
             <div className='w-full flex gap-7 flex-col  items-center '>

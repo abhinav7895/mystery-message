@@ -6,16 +6,14 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import axios, { AxiosError } from "axios";
-import { ApiResponse } from '@/types/ApiResponse';
 import { buttonVariants } from "@/components/ui/button"
 import { toast } from "sonner";
 import { useRouter } from 'next/navigation';
-import { SignUpSchema } from '@/schemas/signUpSchema';
 import { FiLoader } from "react-icons/fi";
 import { Raleway } from 'next/font/google';
 import Link from 'next/link';
 import { SignInSchema } from '@/schemas/signInSchema';
+import { signIn } from 'next-auth/react';
 const ralewayDots = Raleway({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin"]
@@ -26,7 +24,7 @@ const Signin = () => {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof SignInSchema>>({
-    resolver: zodResolver(SignUpSchema),
+    resolver: zodResolver(SignInSchema),
     defaultValues: {
       identifier: "",
       password: ""
@@ -35,13 +33,29 @@ const Signin = () => {
 
 
   const onSubmit = async (data: z.infer<typeof SignInSchema>) => {
+    console.log("Hello");
+    
     setIsSubmit(true);
+    const response = await signIn("credentials", {
+      identifier : data.identifier,
+      password : data.password,
+      redirect : false
+    })
+    console.log(response);
+    
+
+    if (response?.error) {
+      toast.error("Username or email is incorrect. Please try again.");
+    } else {
+      toast.success("Sign-in successful.");
+    }
+    setIsSubmit(false);
   }
 
   
 
   return (
-    <div className='max-w-[400px] bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 py-6 px-3 sm:p-6 mt-[100px] rounded-xl  border border-neutral-800 '>
+    <div className='max-w-[440px] w-full bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 py-6 px-3 sm:p-6 mt-[100px] rounded-xl  border border-neutral-800 '>
       <h1 className={'text-center text-2xl sm:text-3xl pb-2 text-neutral-200 ' + ralewayDots.className}>MysteryMessage</h1>
       <p className="text-center sm:text-base text-neutral-300">
         Sign in to ask questions <span className='bg-gradient-to-br from-red-950 via-red-800 to-red-900 py-[2px] px-1'>anonymously</span>
@@ -80,7 +94,7 @@ const Signin = () => {
               </FormItem>
             )}
           />
-          <button disabled={isSubmit} className={buttonVariants({
+          <button type='submit' disabled={isSubmit} className={buttonVariants({
             className: "bg-gradient-to-br from-red-950 via-red-800 to-red-900 border border-red-800 w-[80px]"
           })}>
             {isSubmit ? <FiLoader className='animate-spin text-xl' /> : "Signin"}
